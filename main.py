@@ -1,6 +1,7 @@
+from email import message
 from faulthandler import cancel_dump_traceback_later
 from unicodedata import name
-from fastapi import FastAPI
+from fastapi import FastAPI, HTTPException
 from pydantic import BaseModel#creamos la base de model 
 from typing import Optional #importamos para generar el valor de id
 from uuid import uuid4 as uuid#importamos para tener el id unico
@@ -42,8 +43,17 @@ def create_posts(post: Element):
 def get_post_id(post_id :str):
     for e in elemnts:
         if e["id"] == post_id:
-            return post_id
-    return ('not found')
+            return e
+    raise HTTPException(status_code=404, detail='Post not found')
+
+@app.delete('/posts/{post_id}')
+def delete_post(post_id :str):
+    for i,e in elemnts:
+        if e["id"] == post_id:
+            elemnts.pop(i)
+            return {'message':'Post deleted successfully'}
+    raise HTTPException(status_code=404, detail='Post deleted')
+        
      
 
 
