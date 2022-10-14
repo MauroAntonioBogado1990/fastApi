@@ -53,8 +53,18 @@ def delete_post(post_id :str):
             elemnts.pop(i)
             return {'message':'Post deleted successfully'}
     raise HTTPException(status_code=404, detail='Post deleted')
-        
-     
+
+#creamos ruta para actualizar
+@app.put('/posts/{post_id}')
+def update_post(post_id :str, updateElement: Element):
+    for index, ele in enumerate(elemnts):
+        if ele["id"]   == post_id:
+            Element[id]["name"] == updateElement.name
+            Element[id]["cant"] == updateElement.cant
+            Element[id]["color"] == updateElement.color
+            return {'message':'Post updated successfully'}    
+    raise HTTPException(status_code=404, detail='Post deleted')
+ 
 
 
     
